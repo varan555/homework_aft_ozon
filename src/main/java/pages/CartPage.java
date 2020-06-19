@@ -6,8 +6,7 @@ import org.openqa.selenium.support.FindBy;
 import steps.BaseSteps;
 import utils.VirtualCart;
 
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import static junit.framework.TestCase.assertFalse;
 import static junit.framework.TestCase.assertTrue;
@@ -37,9 +36,17 @@ public class CartPage extends BasePage {
 
 
     public void checkPurchases() {
-        Map<String, Double> purchase = VirtualCart.getPurchase();
-           try{
-            purchase.forEach((name, price) -> {
+        Set<String> virtualCart = VirtualCart.getPurchase().keySet();
+        try {
+            Thread.sleep(2000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        Set<String> realCart = new TreeSet<>();
+        for (WebElement element: listOfPurchase) {
+            realCart.add(element.getText());
+        }
+            VirtualCart.getPurchase().forEach((name, price) -> {
                 for (WebElement purch : listOfPurchase) {
                     if (name.equals(purch.getText())) {
                         System.out.println(name + " соответствует " + purch.getText());;
@@ -47,11 +54,9 @@ public class CartPage extends BasePage {
                     }
                 }
             });
-        }
-        catch (Exception e) {
-            e.printStackTrace();
-        }
+        assertTrue("Записанные значения не соответствуют реальным", virtualCart.equals(realCart));
     }
+
 
     public void checkNumbers(String expected) {
         int expectedD = Integer.parseInt(expected);

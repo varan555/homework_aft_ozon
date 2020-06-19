@@ -4,6 +4,7 @@ import annotation.ElementName;
 import org.junit.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
@@ -55,7 +56,7 @@ public abstract class BasePage {
     public void fillField(WebElement field, String value){
         ((JavascriptExecutor) DriverManager.getDriver()).executeScript("arguments[0].scrollIntoView(true);", field);
         field.clear();
-        field.sendKeys(value);
+        field.sendKeys(Keys.chord(Keys.CONTROL,"a", Keys.DELETE) + value);
     }
 
     public void fillField(String name, String value) throws Exception {
