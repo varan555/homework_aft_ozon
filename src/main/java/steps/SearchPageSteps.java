@@ -1,12 +1,12 @@
 package steps;
 
-import io.cucumber.core.gherkin.vintage.internal.gherkin.ast.DataTable;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
-import org.junit.Assert;
 import pages.BasePage;
 import pages.SearchPage;
+import utils.AllureUtils;
 
+import java.io.IOException;
 import java.util.List;
 
 import static steps.BaseSteps.pageObject;
@@ -40,6 +40,11 @@ public class SearchPageSteps {
     @When("выполнен переход в корзину:")
     public void toCart() {
         searchPage.toCart();
+        try {
+            AllureUtils.readBytes();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
 }

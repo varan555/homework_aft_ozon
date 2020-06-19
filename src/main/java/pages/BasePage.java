@@ -56,7 +56,8 @@ public abstract class BasePage {
     public void fillField(WebElement field, String value){
         ((JavascriptExecutor) DriverManager.getDriver()).executeScript("arguments[0].scrollIntoView(true);", field);
         field.clear();
-        field.sendKeys(Keys.chord(Keys.CONTROL,"a", Keys.DELETE) + value);
+        field.sendKeys(value);
+//        field.sendKeys(Keys.chord(Keys.CONTROL,"a", Keys.DELETE) + value);
     }
 
     public void fillField(String name, String value) throws Exception {
@@ -74,8 +75,10 @@ public abstract class BasePage {
         Class example = Class.forName(className);
         List<Field> fields = Arrays.asList(example.getFields());
         for (Field field : fields){
-            if (field.getAnnotation(ElementName.class).nameElement().equals(name)){
-                return DriverManager.getDriver().findElement(By.xpath(field.getAnnotation(FindBy.class).xpath()));
+            if(field.isAnnotationPresent(ElementName.class)) {
+                if (field.getAnnotation(ElementName.class).nameElement().equals(name)) {
+                    return DriverManager.getDriver().findElement(By.xpath(field.getAnnotation(FindBy.class).xpath()));
+                }
             }
         }
         Assert.fail("Не объявлен элемент с наименованием " + name);

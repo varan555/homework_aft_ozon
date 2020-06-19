@@ -23,9 +23,9 @@ public class BaseSteps {
         WebDriver driver = DriverManager.getDriver();
         driver.get(properties.getProperty("app.url"));
         driver.manage().window().maximize();
-        driver.manage().timeouts().implicitlyWait(200, TimeUnit.SECONDS);
-        driver.manage().timeouts().pageLoadTimeout(200, TimeUnit.SECONDS);
-        wait = new WebDriverWait(driver, 150);
+        driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
+        driver.manage().timeouts().pageLoadTimeout(20, TimeUnit.SECONDS);
+        wait = new WebDriverWait(driver, 15);
      }
 
     @After

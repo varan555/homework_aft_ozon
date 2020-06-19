@@ -37,11 +37,6 @@ public class CartPage extends BasePage {
 
     public void checkPurchases() {
         Set<String> virtualCart = VirtualCart.getPurchase().keySet();
-        try {
-            Thread.sleep(2000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
         Set<String> realCart = new TreeSet<>();
         for (WebElement element: listOfPurchase) {
             realCart.add(element.getText());
